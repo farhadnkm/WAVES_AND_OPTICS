@@ -1,12 +1,12 @@
 import numpy as np
 
-N = 100000000
+N = 100_000_000
 
 x = np.random.rand(N)
 y = np.random.rand(N)
 r = np.sqrt(x*x + y*y)
 
-r_ = r[r<= 1]
+r_ = r[r <= 1]
 
 pi = 4 * len(r_) / N
 print("Estimated value of pi:", pi)
@@ -30,3 +30,15 @@ cond_frac = condition[::int(N / 10000)]
 plt.scatter(x_frac[cond_frac], y_frac[cond_frac], 1.0, color='orange')
 plt.scatter(x_frac[np.logical_not(cond_frac)], y_frac[np.logical_not(cond_frac)], 1.0, color='green')
 plt.show()
+
+
+theta = np.arccos(x/r)
+condition = np.logical_and(theta < np.pi/3, theta > np.pi/6)
+condition = np.logical_and(condition, r <= 1)
+cond_frac = condition[::int(N / 10000)]
+plt.scatter(x_frac[cond_frac], y_frac[cond_frac], 1.0, color='orange')
+plt.scatter(x_frac[np.logical_not(cond_frac)], y_frac[np.logical_not(cond_frac)], 1.0, color='green')
+plt.show()
+
+
+print(len(x[condition])/N)
